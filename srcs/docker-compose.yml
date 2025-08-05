@@ -1,0 +1,90 @@
+# version: '3.8'
+
+services:
+  nginx:
+    build: ./requirements/nginx
+    container_name: ft_nginx 
+    ports:
+      - "443:443" # host:container 
+    networks:
+      - myNet
+    depends_on:
+      - wordpress
+    volumes:
+      - wordpress_files:/var/www/html
+
+  wordpress:
+    build: ./requirements/wordpress
+    container_name: ft_wordpress
+    volumes:
+      - wordpress_files:/var/www/html
+    depends_on:
+      - redis
+      - mariadb
+    networks:
+      - myNet
+    env_file:
+      - .env
+  mariadb:
+    build: ./requirements/mariadb
+    container_name: ft_mariadb
+    ports:
+      - "3306:3306"
+    networks:
+      - myNet
+    env_file:
+      - .env
+    volumes:
+      - mariadb_data:/data
+  redis:
+    build: ./requirements/bonus/redis
+    container_name: ft_redis
+    networks:
+      - myNet
+    volumes:
+      - redis_data:/data
+  ftp:
+    build: ./requirements/bonus/FTP_server
+    container_name: ft_ftp
+    volumes:
+      - wordpress_files:/var/www/html
+    networks:
+      - myNet
+    env_file:
+      - .env
+    ports:
+      - "21:21"
+      - "30000-30009:30000-30009"
+  adminer:
+    build: requirements/bonus/Adminer
+    container_name: ft_adminer
+    networks:
+      - myNet
+    ports:
+      - 8081:8081
+  static-site:
+    build: requirements/bonus/static
+    container_name: ft_static-site
+    networks:
+      - myNet
+    ports:
+      - "8080:80"
+  portainer:
+    build: requirements/bonus/portainer
+    container_name: ft_portainer
+    networks:
+      - myNet
+    ports:
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+
+volumes:
+  wordpress_files:
+  mariadb_data:
+  redis_data:
+  portainer_data:
+
+networks:
+  myNet:

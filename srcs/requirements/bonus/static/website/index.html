@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inception Project Summary</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #1a252f;
+            --success: #2ecc71;
+            --warning: #f39c12;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(255,255,255,0.05)" d="M0,0 L100,0 L100,100 L0,100 Z" /></svg>');
+            background-size: cover;
+            opacity: 0.1;
+        }
+        
+        h1, h2, h3 {
+            color: var(--primary);
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.8rem;
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        h2 {
+            border-bottom: 3px solid var(--secondary);
+            padding-bottom: 8px;
+            margin-top: 40px;
+            display: inline-block;
+            position: relative;
+        }
+        
+        h2::after {
+            content: "";
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 50%;
+            height: 3px;
+            background-color: var(--accent);
+        }
+        
+        .card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--secondary);
+        }
+        
+        .requirements {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .requirement {
+            background: white;
+            border-left: 5px solid var(--secondary);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .requirement:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .requirement h3 {
+            margin-top: 0;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+        }
+        
+        .requirement h3 i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+        
+        .badge {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 8px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+        
+        .badge-mandatory {
+            background-color: var(--primary);
+        }
+        
+        .badge-bonus {
+            background-color: var(--success);
+        }
+        
+        .badge-warning {
+            background-color: var(--warning);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: white;
+            margin-top: 50px;
+            position: relative;
+        }
+        
+        footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--secondary));
+        }
+        
+        .progress-container {
+            width: 100%;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            border-radius: 5px;
+            background: linear-gradient(90deg, var(--secondary), var(--success));
+            width: 0;
+            transition: width 1s ease-in-out;
+        }
+        
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .tech-item {
+            background: var(--light);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .tech-item i {
+            margin-right: 8px;
+            color: var(--secondary);
+        }
+        
+        .diagram {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .diagram img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted var(--secondary);
+            cursor: help;
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: var(--dark);
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        .toggle-container {
+            margin: 20px 0;
+        }
+        
+        .toggle-btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .toggle-btn:hover {
+            background: var(--primary);
+        }
+        
+        .hidden-content {
+            display: none;
+            padding: 15px;
+            background: rgba(236, 240, 241, 0.5);
+            border-radius: 5px;
+            margin-top: 10px;
+            border-left: 3px solid var(--secondary);
+        }
+        
+        .command {
+            background: var(--dark);
+            color: var(--light);
+            padding: 12px;
+            border-radius: 5px;
+            font-family: monospace;
+            overflow-x: auto;
+            margin: 10px 0;
+            position: relative;
+        }
+        
+        .command::before {
+            content: "$";
+            color: var(--success);
+            margin-right: 10px;
+        }
+        
+        .copy-btn {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        
+        .copy-btn:hover {
+            background: var(--secondary);
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 30px auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            background-color: var(--secondary);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1.5px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border: 3px solid var(--secondary);
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+        
+        .left {
+            left: 0;
+            text-align: right;
+        }
+        
+        .right {
+            left: 50%;
+            text-align: left;
+        }
+        
+        .left::after {
+            right: -13px;
+        }
+        
+        .right::after {
+            left: -13px;
+        }
+        
+        .timeline-content {
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .requirements {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item::after {
+                left: 18px;
+            }
+            
+            .left, .right {
+                left: 0;
+                text-align: left;
+            }
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animated {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><i class="fas fa-project-diagram"></i> Inception Project</h1>
+            <p>System Administration with Docker | Version 3.2</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="card animated">
+            <h2><i class="fas fa-info-circle"></i> Project Overview</h2>
+            <p>The Inception project requires setting up a small infrastructure using Docker containers with specific services and configurations. The project must be completed on a Virtual Machine using Docker Compose.</p>
+            
+            <div class="tech-stack">
+                <div class="tech-item"><i class="fab fa-docker"></i> Docker</div>
+                <div class="tech-item"><i class="fas fa-server"></i> Docker Compose</div>
+                <div class="tech-item"><i class="fab fa-wordpress"></i> WordPress</div>
+                <div class="tech-item"><i class="fas fa-database"></i> MariaDB</div>
+                <div class="tech-item"><i class="fas fa-shield-alt"></i> NGINX + TLS</div>
+                <div class="tech-item"><i class="fas fa-network-wired"></i> Docker Network</div>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-bar" id="projectProgress"></div>
+            </div>
+        </div>
+        
+        <div class="diagram animated delay-1">
+            <h3><i class="fas fa-sitemap"></i> Infrastructure Diagram</h3>
+            <svg width="100%" height="300" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg">
+                <!-- Host Computer -->
+                <rect x="50" y="50" width="150" height="80" rx="10" fill="white" stroke="#2c3e50" stroke-width="2"/>
+                <text x="125" y="90" text-anchor="middle" fill="#2c3e50" font-weight="bold">Host VM</text>
+                
+                <!-- Docker Network -->
+                <rect x="250" y="30" width="300" height="120" rx="10" fill="#ecf0f1" stroke="#3498db" stroke-width="2" stroke-dasharray="5,5"/>
+                <text x="400" y="70" text-anchor="middle" fill="#3498db" font-weight="bold">Docker Network</text>
+                
+                <!-- Containers -->
+                <rect x="280" y="80" width="80" height="50" rx="5" fill="#e74c3c" opacity="0.8"/>
+                <text x="320" y="110" text-anchor="middle" fill="white" font-size="12">NGINX</text>
+                
+                <rect x="380" y="80" width="80" height="50" rx="5" fill="#2ecc71" opacity="0.8"/>
+                <text x="420" y="110" text-anchor="middle" fill="white" font-size="12">WordPress</text>
+                
+                <rect x="480" y="80" width="80" height="50" rx="5" fill="#f39c12" opacity="0.8"/>
+                <text x="520" y="110" text-anchor="middle" fill="white" font-size="12">MariaDB</text>
+                
+                <!-- Connections -->
+                <line x1="200" y1="90" x2="250" y2="90" stroke="#2c3e50" stroke-width="2"/>
+                <line x1="280" y1="105" x2="250" y2="105" stroke="#3498db" stroke-width="2" stroke-dasharray="5,5"/>
+                <line x1="360" y1="105" x2="380" y2="105" stroke="#3498db" stroke-width="2" stroke-dasharray="5,5"/>
+                <line x1="460" y1="105" x2="480" y2="105" stroke="#3498db" stroke-width="2" stroke-dasharray="5,5"/>
+                
+                <!-- Volumes -->
+                <rect x="280" y="160" width="80" height="30" rx="5" fill="#9b59b6" opacity="0.6"/>
+                <text x="320" y="180" text-anchor="middle" fill="white" font-size="10">Volume: DB</text>
+                
+                <rect x="380" y="160" width="80" height="30" rx="5" fill="#9b59b6" opacity="0.6"/>
+                <text x="420" y="180" text-anchor="middle" fill="white" font-size="10">Volume: Files</text>
+                
+                <!-- Legend -->
+                <rect x="600" y="50" width="150" height="180" rx="10" fill="white" stroke="#2c3e50" stroke-width="1"/>
+                <text x="675" y="75" text-anchor="middle" fill="#2c3e50" font-weight="bold" font-size="14">Legend</text>
+                
+                <rect x="610" y="90" width="20" height="20" rx="5" fill="#e74c3c" opacity="0.8"/>
+                <text x="640" y="105" font-size="12" fill="#2c3e50">Container</text>
+                
+                <rect x="610" y="120" width="20" height="20" rx="5" fill="#9b59b6" opacity="0.6"/>
+                <text x="640" y="135" font-size="12" fill="#2c3e50">Volume</text>
+                
+                <line x1="610" y1="150" x2="630" y2="150" stroke="#3498db" stroke-width="2" stroke-dasharray="5,5"/>
+                <text x="640" y="155" font-size="12" fill="#2c3e50">Network</text>
+                
+                <line x1="610" y1="170" x2="630" y2="170" stroke="#2c3e50" stroke-width="2"/>
+                <text x="640" y="175" font-size="12" fill="#2c3e50">Host Link</text>
+            </svg>
+        </div>
+        
+        <h2 class="animated delay-1"><i class="fas fa-tasks"></i> Mandatory Requirements</h2>
+        <div class="requirements">
+            <div class="requirement animated delay-1">
+                <h3><i class="fas fa-box"></i> Container Setup</h3>
+                <p><span class="badge badge-mandatory">Mandatory</span> Each service must run in a dedicated container with the same name as the service.</p>
+                <p>Containers must be built from either Alpine or Debian (penultimate stable version).</p>
+                
+                <div class="toggle-container">
+                    <button class="toggle-btn" onclick="toggleContent('container-details')">Show Details</button>
+                    <div class="hidden-content" id="container-details">
+                        <p><strong>Example Dockerfile:</strong></p>
+                        <div class="command">
+                            <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                            <code>FROM alpine:3.16
+RUN apk update && apk add nginx
+COPY nginx.conf /etc/nginx/nginx.conf
+EXPOSE 443
+CMD ["nginx", "-g", "daemon off;"]</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="requirement animated delay-1">
+                <h3><i class="fas fa-server"></i> Required Services</h3>
+                <ul>
+                    <li><i class="fas fa-check-circle" style="color: var(--success);"></i> NGINX with TLSv1.2/1.3 only</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--success);"></i> WordPress with php-fpm (no nginx)</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--success);"></i> MariaDB (no nginx)</li>
+                </ul>
+                
+                <div class="toggle-container">
+                    <button class="toggle-btn" onclick="toggleContent('services-details')">Configuration Tips</button>
+                    <div class="hidden-content" id="services-details">
+                        <p><strong>NGINX TLS Configuration:</strong></p>
+                        <div class="command">
+                            <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                            <code>ssl_protocols TLSv1.2 TLSv1.3;
+ssl_ciphers 'TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384';
+ssl_prefer_server_ciphers on;</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="requirement animated delay-2">
+                <h3><i class="fas fa-database"></i> Volumes & Network</h3>
+                <ul>
+                    <li><i class="fas fa-hdd" style="color: var(--warning);"></i> Volume for WordPress database</li>
+                    <li><i class="fas fa-hdd" style="color: var(--warning);"></i> Volume for WordPress files</li>
+                    <li><i class="fas fa-network-wired" style="color: var(--secondary);"></i> Docker network for container communication</li>
+                </ul>
+                
+                <div class="toggle-container">
+                    <button class="toggle-btn" onclick="toggleContent('volumes-details')">Example Config</button>
+                    <div class="hidden-content" id="volumes-details">
+                        <p><strong>docker-compose.yml snippet:</strong></p>
+                        <div class="command">
+                            <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                            <code>volumes:
+  wordpress_db:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/yourlogin/data/db
+      o: bind
+      
+networks:
+  inception_net:
+    driver: bridge</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="requirement animated delay-2">
+                <h3><i class="fas fa-shield-alt"></i> Security</h3>
+                <ul>
+                    <li><i class="fas fa-ban" style="color: var(--accent);"></i> No passwords in Dockerfiles</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--success);"></i> Environment variables mandatory</li>
+                    <li><i class="fas fa-check-circle" style="color: var(--success);"></i> Use of .env file recommended</li>
+                    <li><i class="fas fa-key" style="color: var(--warning);"></i> Docker secrets for sensitive data</li>
+                </ul>
+                
+                <div class="toggle-container">
+                    <button class="toggle-btn" onclick="toggleContent('security-details')">Security Best Practices</button>
+                    <div class="hidden-content" id="security-details">
+                        <p><strong>.env file example:</strong></p>
+                        <div class="command">
+                            <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                            <code>DOMAIN_NAME=yourlogin.42.fr
+MYSQL_USER=wp_user
+MYSQL_PASSWORD_FILE=/run/secrets/db_password
+MYSQL_ROOT_PASSWORD_FILE=/run/secrets/db_root_password</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="requirement animated delay-3">
+                <h3><i class="fas fa-globe"></i> Domain Configuration</h3>
+                <p><span class="badge badge-mandatory">Mandatory</span> Domain must be <code class="tooltip">login.42.fr<span class="tooltiptext">Replace 'login' with your actual login</span></code> pointing to local IP.</p>
+                <p><i class="fas fa-lock" style="color: var(--success);"></i> NGINX must be the sole entry point (port 443 only).</p>
+                
+                <div class="toggle-container">
+                    <button class="toggle-btn" onclick="toggleContent('domain-details')">Hosts File Setup</button>
+                    <div class="hidden-content" id="domain-details">
+                        <p>Edit your <code>/etc/hosts</code> file:</p>
+                        <div class="command">
+                            <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                            <code>127.0.0.1   yourlogin.42.fr</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="requirement animated delay-3">
+                <h3><i class="fas fa-users"></i> Database Users</h3>
+                <p><span class="badge badge-mandatory">Mandatory</span> Two users required in WordPress DB.</p>
+                <p><span class="badge badge-warning">Important</span> Admin username must NOT contain: admin, Admin, administrator, Administrator.</p>
+                
+                <div class="toggle-container">
+                    <button class="toggle-btn" onclick="toggleContent('db-details')">SQL Example</button>
+                    <div class="hidden-content" id="db-details">
+                        <p><strong>Creating users:</strong></p>
+                        <div class="command">
+                            <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                            <code>CREATE USER 'wp_user'@'%' IDENTIFIED BY 'password';
+CREATE USER 'site_manager'@'%' IDENTIFIED BY 'strongpassword';
+GRANT ALL PRIVILEGES ON wordpress.* TO 'site_manager'@'%';
+GRANT SELECT, INSERT, UPDATE ON wordpress.* TO 'wp_user'@'%';</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <h2 class="animated delay-2"><i class="fas fa-star"></i> Bonus Opportunities</h2>
+        <div class="requirements">
+            <div class="requirement animated delay-2">
+                <h3><i class="fas fa-bolt"></i> Redis Cache</h3>
+                <p><span class="badge badge-bonus">Bonus</span> Set up Redis cache for WordPress.</p>
+                <p>Improves performance by caching database queries and sessions.</p>
+                
+                <div class="toggle-container">
+                    <button class="toggle-btn" onclick="toggleContent('redis-details')">Setup Guide</button>
+                    <div class="hidden-content" id="redis-details">
+                        <p>1. Add Redis container to docker-compose.yml</p>
+                        <p>2. Install Redis Object Cache plugin in WordPress</p>
+                        <p>3. Configure wp-config.php:</p>
+                        <div class="command">
+                            <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                            <code>define('WP_REDIS_HOST', 'redis');
+define('WP_REDIS_PORT', 6379);</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="requirement animated delay-2">
+                <h3><i class="fas fa-file-upload"></i> FTP Server</h3>
+                <p><span class="badge badge-bonus">Bonus</span> FTP server container pointing to WordPress volume.</p>
+                <p>Allows easy file management for WordPress content.</p>
+                
+                <div class="toggle-container">
+                    <button class="toggle-btn" onclick="toggleContent('ftp-details')">Example Config</button>
+                    <div class="hidden-content" id="ftp-details">
+                        <p><strong>docker-compose.yml entry:</strong></p>
+                        <div class="command">
+                            <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                            <code>ftp:
+  image: stilliard/pure-ftpd
+  volumes:
+    - wordpress_files:/home/ftpuser
+  ports:
+    - "21:21"
+    - "30000-30009:30000-30009"
+  environment:
+    FTP_USER_NAME: ftpuser
+    FTP_USER_PASS: secret
+    FTP_USER_HOME: /home/ftpuser</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="requirement animated delay-3">
+                <h3><i class="fas fa-file-code"></i> Static Website</h3>
+                <p><span class="badge badge-bonus">Bonus</span> Create a simple static website (non-PHP).</p>
+                <p><i class="fas fa-check-circle" style="color: var(--success);"></i> This page qualifies for this bonus!</p>
+                
+                <div class="toggle-container">
+                    <button class="toggle-btn" onclick="toggleContent('static-details')">Dockerfile</button>
+                    <div class="hidden-content" id="static-details">
+                        <p><strong>Simple static site Dockerfile:</strong></p>
+                        <div class="command">
+                            <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                            <code>FROM nginx:alpine
+COPY . /usr/share/nginx/html
+EXPOSE 80</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="requirement animated delay-3">
+                <h3><i class="fas fa-tools"></i> Adminer</h3>
+                <p><span class="badge badge-bonus">Bonus</span> Set up Adminer database management.</p>
+                <p>Provides a web interface for database administration.</p>
+                
+                <div class="toggle-container">
+                    <button class="toggle-btn" onclick="toggleContent('adminer-details')">Setup</button>
+                    <div class="hidden-content" id="adminer-details">
+                        <p><strong>docker-compose.yml entry:</strong></p>
+                        <div class="command">
+                            <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                            <code>adminer:
+  image: adminer
+  restart: always
+  ports:
+    - 8080:8080
+  networks:
+    - inception_net</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="requirement animated delay-3">
+                <h3><i class="fas fa-lightbulb"></i> Custom Service</h3>
+                <p><span class="badge badge-bonus">Bonus</span> Add a service of your choice with justification.</p>
+                <p>Suggestions: Monitoring (Grafana), Backup (Duplicati), or CI/CD (Jenkins).</p>
+                
+                <div class="toggle-container">
+                    <button class="toggle-btn" onclick="toggleContent('custom-details')">Ideas</button>
+                    <div class="hidden-content" id="custom-details">
+                        <p><strong>Grafana for Monitoring:</strong></p>
+                        <div class="command">
+                            <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                            <code>grafana:
+  image: grafana/grafana
+  ports:
+    - 3000:3000
+  volumes:
+    - grafana_data:/var/lib/grafana
+  networks:
+    - inception_net</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card animated delay-3">
+            <h2><i class="fas fa-folder-open"></i> Project Structure</h2>
+            <div class="command">
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                <code>.
+├── Makefile
+├── secrets/
+│   ├── credentials.txt
+│   ├── db_password.txt
+│   └── db_root_password.txt
+└── srcs/
+    ├── docker-compose.yml
+    ├── .env
+    └── requirements/
+        ├── mariadb/
+        │   ├── Dockerfile
+        │   ├── .dockerignore
+        │   ├── conf/
+        │   └── tools/
+        ├── nginx/
+        │   ├── Dockerfile
+        │   ├── .dockerignore
+        │   ├── conf/
+        │   └── tools/
+        ├── wordpress/
+        │   ├── Dockerfile
+        │   ├── .dockerignore
+        │   ├── conf/
+        │   └── tools/
+        └── static-website/  &lt;-- This is our static site!
+            ├── index.html
+            ├── Dockerfile
+            └── styles.css</code>
+            </div>
+        </div>
+        
+        <div class="card animated delay-3">
+            <h2><i class="fas fa-ban"></i> Key Prohibitions</h2>
+            <ul>
+                <li><i class="fas fa-times-circle" style="color: var(--accent);"></i> No ready-made Docker images (except Alpine/Debian)</li>
+                <li><i class="fas fa-times-circle" style="color: var(--accent);"></i> No <code>network: host</code> or <code>--link</code></li>
+                <li><i class="fas fa-times-circle" style="color: var(--accent);"></i> No infinite loop commands (<code>tail -f</code>, <code>sleep infinity</code>, etc.)</li>
+                <li><i class="fas fa-times-circle" style="color: var(--accent);"></i> No "latest" tag in images</li>
+                <li><i class="fas fa-times-circle" style="color: var(--accent);"></i> No admin-like usernames</li>
+            </ul>
+        </div>
+        
+        <div class="timeline animated delay-3">
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h3>1. Setup VM</h3>
+                    <p>Create your virtual machine and install Docker + Docker Compose</p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h3>2. Create Dockerfiles</h3>
+                    <p>Write Dockerfiles for NGINX, WordPress, and MariaDB</p>
+                </div>
+            </div>
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h3>3. Configure Services</h3>
+                    <p>Set up TLS for NGINX, PHP-FPM for WordPress, and DB users</p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h3>4. Create docker-compose.yml</h3>
+                    <p>Define services, volumes, and network</p>
+                </div>
+            </div>
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h3>5. Test Infrastructure</h3>
+                    <p>Verify all services work together correctly</p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h3>6. Add Bonus Features</h3>
+                    <p>Implement Redis, FTP, Adminer, or other bonus services</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p><i class="fas fa-project-diagram"></i> Inception Project | System Administration Exercise</p>
+            <p>Version: 3.2 | Created with <i class="fas fa-heart" style="color: var(--accent);"></i> for 42 School</p>
+        </div>
+    </footer>
+
+    <script>
+        // Animate progress bar on page load
+        window.onload = function() {
+            document.getElementById('projectProgress').style.width = '85%';
+            
+            // Add animation classes to elements
+            const elements = document.querySelectorAll('.animated');
+            elements.forEach(el => {
+                el.style.opacity = '0';
+            });
+            
+            setTimeout(() => {
+                elements.forEach(el => {
+                    el.style.opacity = '1';
+                });
+            }, 100);
+        };
+        
+        // Toggle hidden content
+        function toggleContent(id) {
+            const content = document.getElementById(id);
+            if (content.style.display === 'block') {
+                content.style.display = 'none';
+            } else {
+                content.style.display = 'block';
+            }
+        }
+        
+        // Copy to clipboard function
+        function copyToClipboard(button) {
+            const command = button.parentElement.querySelector('code');
+            const textArea = document.createElement('textarea');
+            textArea.value = command.textContent;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            
+            // Change button text temporarily
+            button.textContent = 'Copied!';
+            setTimeout(() => {
+                button.textContent = 'Copy';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
