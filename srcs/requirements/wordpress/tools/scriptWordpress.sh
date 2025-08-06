@@ -6,7 +6,7 @@ echo "DB_PASS=$MYSQL_PASSWORD"
 echo "DB_HOST=$DB_HOST:$DB_HOST_PORT"
 
 until mysqladmin ping -h"$DB_HOST" -P"$DB_HOST_PORT" --silent; do
-  echo "Waiting for MariaDB..."
+#   echo "Waiting for MariaDB..."
   sleep 2
 done
 

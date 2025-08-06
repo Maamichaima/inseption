@@ -87,9 +87,6 @@ openssl req -x509 -nodes -days 365 \
   -subj "/C=FR/ST=IDF/L=Paris/O=MySite/CN=localhost"
 
 
-
-
-
 # 🛜 Docker Networking (Without Docker Compose)
 
 ## 🧩 Default Behavior: Docker Bridge Network
