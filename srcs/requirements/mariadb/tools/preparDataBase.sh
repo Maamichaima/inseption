@@ -1,7 +1,7 @@
 #!/bin/bash
 #
-echo database $MYSQL_DATABASE
-echo user $MYSQL_USER
+# echo database $MYSQL_DATABASE
+# echo user $MYSQL_USER
 
 if [ ! -d "/var/lib/mysql/$MYSQL_DATABASE" ]; then
 	service mariadb start

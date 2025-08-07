@@ -22,7 +22,7 @@ fi
 
 if ! wp core is-installed --allow-root; then
 	wp core install \
-	--url="https://localhost" \
+	--url="https://cmaami.fr.42" \
 	--title="$TITLE" \
 	--admin_user="$ADMIN_USER" \
 	--admin_password="$ADMIN_USER_PASSWORD" \

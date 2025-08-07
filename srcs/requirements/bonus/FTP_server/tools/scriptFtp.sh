@@ -14,8 +14,7 @@ pasv_min_port=30000
 pasv_max_port=30009
 local_root=/var/www/html
 chroot_local_user=NO
-secure_chroot_dir=/var/run/vsftpd/empty
-
+secure_chroot_dir=/var/run/vsftpd/empt
 EOF
 
 # 🔹 Quand ces ports sont-ils utilisés ?
