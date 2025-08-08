@@ -5,6 +5,6 @@ RUN apt-get update && apt-get install -y \
 
 COPY ./tools/preparDataBase.sh /docker-entrypoint-initdb.d/
 
-COPY 50-server.cnf /etc/mysql/mariadb.conf.d/
+COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
 
 CMD ["/docker-entrypoint-initdb.d/preparDataBase.sh"]

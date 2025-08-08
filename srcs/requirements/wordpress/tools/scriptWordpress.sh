@@ -35,6 +35,8 @@ wp user create $USER $USER_EMAIL \
     --user_pass=$USER_PASSWORD \
     --allow-root
 
+#bonus 
+
 #Sets the Redis server hostname to redis in the WordPress config. This matches your Docker service name, so WordPress can find Redis.
 wp config  set WP_REDIS_HOST redis --allow-root
 # Sets the Redis server port to 6379 (the default Redis port).

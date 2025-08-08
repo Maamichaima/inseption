@@ -2,8 +2,6 @@ FROM debian:12.4-slim
 
 # Install dependencies
 RUN apt-get update && apt-get install -y php8.2-fpm curl php-mysql mariadb-client
-    # mariadb-server \
-    # && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /var/www/html/
 
