@@ -1,16 +1,6 @@
 FROM debian:12.4
 
-RUN apt-get update && apt-get install -y \
-    php \
-    php-fpm \
-    php-gd \
-    php-mysql \
-    php-mbstring \
-    php-ctype \
-    php-json \
-    wget \
-    libpng-dev \
-    libjpeg-dev
+RUN apt-get update && apt-get install -y wget php php-mysql
 
 RUN mkdir -p /var/www/html
 

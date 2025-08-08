@@ -9,4 +9,6 @@ COPY ./tools/scriptFtp.sh /script.sh
 
 RUN chmod +x /script.sh
 
+RUN mkdir -p /var/run/vsftpd/empty
+
 CMD [ "/script.sh" ]

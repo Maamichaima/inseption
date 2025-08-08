@@ -1,10 +1,10 @@
 
-WP_VOLUME_DIR = /Users/$(USER)/data/wordpress
-MDB_VOLUME_DIR = /Users/$(USER)/data/mariadb
-PORT_VOLUME_DIR = /Users/$(USER)/data/portainer
+WP_VOLUME_DIR = /home/$(USER)/data/wordpress
+MDB_VOLUME_DIR = /home/$(USER)/data/mariadb
+PORT_VOLUME_DIR = /home/$(USER)/data/portainer
 
 all: create-volumes
-	docker compose -f ./srcs/docker-compose.yml up --build
+	docker compose -f ./srcs/docker-compose.yml up --build -d
 create-volumes:
 	@if [ ! -d "$(MDB_VOLUME_DIR)" ]; then \
 		mkdir -p $(MDB_VOLUME_DIR); \
@@ -16,8 +16,7 @@ create-volumes:
 		mkdir -p $(PORT_VOLUME_DIR); \
 	fi
 
-
-up:
+up: create-volumes
 	docker compose -f ./srcs/docker-compose.yml up --build -d
 down:
 	docker compose -f ./srcs/docker-compose.yml down

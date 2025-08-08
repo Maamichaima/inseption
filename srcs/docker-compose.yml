@@ -5,19 +5,20 @@ services:
     build: ./requirements/nginx
     container_name: nginx 
     ports:
-      - "443:443" # host:container 
+      - "443:443"
     networks:
       - myNet
     depends_on:
       - wordpress
+      - redis
     volumes:
-      - wordpress_files:/var/www/html
-
+      - wordpress:/var/www/html
+    restart: always
   wordpress:
     build: ./requirements/wordpress
     container_name: wordpress
     volumes:
-      - wordpress_files:/var/www/html
+      - wordpress:/var/www/html
     depends_on:
       - redis
       - mariadb
@@ -25,6 +26,7 @@ services:
       - myNet
     env_file:
       - .env
+    restart: always
   mariadb:
     build: ./requirements/mariadb
     container_name: mariadb
@@ -35,19 +37,21 @@ services:
     env_file:
       - .env
     volumes:
-      - mariadb_data:/data
+      - mariadb:/data
+    restart: always
   redis:
     build: ./requirements/bonus/redis
     container_name: redis
     networks:
       - myNet
-    volumes:
-      - redis_data:/data
+    ports:
+      - "6379:6379"
+    restart: always
   ftp:
     build: ./requirements/bonus/FTP_server
     container_name: ftp
     volumes:
-      - wordpress_files:/var/www/html
+      - wordpress:/var/www/html
     networks:
       - myNet
     env_file:
@@ -55,6 +59,9 @@ services:
     ports:
       - "21:21"
       - "30000-30009:30000-30009"
+    depends_on:
+      - wordpress
+    restart: always
   adminer:
     build: requirements/bonus/Adminer
     container_name: adminer
@@ -62,6 +69,7 @@ services:
       - myNet
     ports:
       - 8081:8081
+    restart: always
   static-site:
     build: requirements/bonus/static
     container_name: static-site
@@ -69,6 +77,7 @@ services:
       - myNet
     ports:
       - "8080:80"
+    restart: always
   portainer:
     build: requirements/bonus/portainer
     container_name: portainer
@@ -78,14 +87,31 @@ services:
       - "9000:9000"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - portainer_data:/data
+      - portainer:/data
+    restart: always
 
 volumes:
-  wordpress_files:
-  mariadb_data:
-  redis_data:
-  portainer_data:
-
+  wordpress:
+    name : wordpress
+    driver: local
+    driver_opts:
+      type: none
+      device: /${HOME}/data/wordpress
+      o: bind
+  mariadb:
+    name : mariadb
+    driver: local
+    driver_opts:
+      type: none
+      device: /${HOME}/data/mariadb
+      o: bind
+  portainer:
+    name : portainer
+    driver: local
+    driver_opts:
+      type: none
+      device: /${HOME}/data/portainer
+      o: bind
 networks:
   myNet:
-    # bridge
+    driver: bridge

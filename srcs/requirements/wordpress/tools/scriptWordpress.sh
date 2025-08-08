@@ -22,7 +22,7 @@ fi
 
 if ! wp core is-installed --allow-root; then
 	wp core install \
-	--url="https://cmaami.fr.42" \
+	--url="https://cmaami.42.fr" \
 	--title="$TITLE" \
 	--admin_user="$ADMIN_USER" \
 	--admin_password="$ADMIN_USER_PASSWORD" \
@@ -30,6 +30,11 @@ if ! wp core is-installed --allow-root; then
 	--skip-email \
 	--allow-root
 fi
+
+wp user create $USER $USER_EMAIL \
+    --user_pass=$USER_PASSWORD \
+    --allow-root
+
 #Sets the Redis server hostname to redis in the WordPress config. This matches your Docker service name, so WordPress can find Redis.
 wp config  set WP_REDIS_HOST redis --allow-root
 # Sets the Redis server port to 6379 (the default Redis port).
